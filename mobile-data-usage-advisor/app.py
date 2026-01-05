@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "model", "usage_model.pkl")
+encoder_path = os.path.join(BASE_DIR, "model", "le_target.pkl")
 
-model = joblib.load("model/usage_model.pkl")
-le_target = joblib.load("model/le_target.pkl")
+model = joblib.load(model_path)
+le_target = joblib.load(encoder_path)
 
 st.set_page_config(page_title="Mobile Data Usage Advisor", layout="centered")
 
@@ -54,3 +58,4 @@ if st.button("Analyze Usage"):
         st.error(" High Risk – data may finish quickly")
 
     st.info(f"Predicted Risk Level: **{risk}**")
+
